@@ -72,7 +72,7 @@
     	<artifactId>iot-bm</artifactId>
     	<version>0.1</version>
     	<scope>system</scope>
-    		<systemPath>/Users/sahiltyagi/Documents/IISc/iot-bm-tasks-0.1.jar</systemPath>
+    		<systemPath>/home/ubuntu/iot-bm-tasks-0.1.jar</systemPath>
     <!--<systemPath>/Users/sahiltyagi/Documents/IISc/riot-bench/modules/tasks/target/iot-bm-tasks-0.1.jar</systemPath>-->
     </dependency>
 	<dependency>
