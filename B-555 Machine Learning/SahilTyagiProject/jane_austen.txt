@@ -1,0 +1,10 @@
+Persuasion,http://www.gutenberg.org/files/105/105-h/105-h.htm
+The Letters of Jane Austen,http://www.gutenberg.org/files/42078/42078-h/42078-h.htm
+Pride and Prejudice,http://www.gutenberg.org/files/1342/1342-h/1342-h.htm
+Emma,http://www.gutenberg.org/files/158/158-h/158-h.htm
+Sense and Sensibility,http://www.gutenberg.org/files/161/161-h/161-h.htm
+Northanger Abbey,http://www.gutenberg.org/files/121/121-h/121-h.htm
+Mansfield Park,http://www.gutenberg.org/files/141/141-h/141-h.htm
+The Watsons: By Jane Austen and Concluded by L. Oulton,http://www.gutenberg.org/files/63569/63569-h/63569-h.htm
+Lady Susan,http://www.gutenberg.org/files/946/946-h/946-h.htm
+Love and Freindship,http://www.gutenberg.org/files/1212/1212-h/1212-h.htm
