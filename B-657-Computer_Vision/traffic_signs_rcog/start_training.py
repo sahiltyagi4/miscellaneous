@@ -107,7 +107,7 @@ parser.add_argument("-m", "--model", required=True)
 parser.add_argument("-p", "--plot", type=str, default="metrics.png")
 args = vars(parser.parse_args())
 
-labels = open("/Users/sahiltyagi/Documents/IUB/miscellaneous/B-657-Computer_Vision/traffic_signs_rcog/signnames.csv").read().strip().split("\n")[1:]
+labels = open("/Users/sahiltyagi/Documents/IUB/miscellaneous/B-657-Computer_Vision/traffic_signs_rcog/labels.txt").read().strip().split("\n")[1:]
 labels = [l.split(",")[1] for l in labels]
 
 trainPath = os.path.sep.join([args["dataset"], "Train.csv"])
