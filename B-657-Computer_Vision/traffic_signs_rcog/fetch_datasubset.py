@@ -18,7 +18,7 @@ for train_dir in all_dirs:
 	if os.path.isdir(train_dir):
 		per_label_images = os.listdir(train_dir)
 		random.shuffle(per_label_images)
-		images_to_consider = len(per_label_images) // 4
+		images_to_consider = len(per_label_images) // 5
 
 		os.makedirs(os.path.join(trimmed_data_dir, train_dir_name))
 		
