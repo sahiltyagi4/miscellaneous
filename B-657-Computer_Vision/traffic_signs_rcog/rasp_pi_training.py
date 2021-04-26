@@ -108,10 +108,10 @@ parser.add_argument("-m", "--model", required=True)
 parser.add_argument("-p", "--plot", type=str, default="metrics.png")
 args = vars(parser.parse_args())
 
-labels = open("/Users/sahiltyagi/Documents/IUB/miscellaneous/B-657-Computer_Vision/traffic_signs_rcog/labels.txt").read().strip().split("\n")[1:]
+labels = open("/home/pi/miscellaneous/B-657-Computer_Vision/traffic_signs_rcog/labels.txt").read().strip().split("\n")[1:]
 labels = [l.split(",")[1] for l in labels]
 
-trainPath = os.path.sep.join([args["dataset"], "Train.csv"])
+trainPath = os.path.sep.join([args["dataset"], "Train_trimmed.csv"])
 testPath = os.path.sep.join([args["dataset"], "Test.csv"])
 
 print("going to load training and testing data...")
