@@ -3,6 +3,8 @@ import sys
 import random
 import shutil
 
+random.seed(7)
+
 data_dir = str(sys.argv[1])
 new_data_dir = str(sys.argv[2])
 
