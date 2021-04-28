@@ -25,7 +25,7 @@ import random
 import os
 
 #hyperparameters
-epoch = 3
+epoch = 10
 lr = 1e-3
 batch_size = 32
 
