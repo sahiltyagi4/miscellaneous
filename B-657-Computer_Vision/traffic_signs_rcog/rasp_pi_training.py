@@ -111,7 +111,7 @@ def parse_input(basePath, csvPath):
 labels = open("/home/pi/miscellaneous/B-657-Computer_Vision/traffic_signs_rcog/labels.txt").read().strip().split("\n")[1:]
 labels = [l.split(",")[1] for l in labels]
 
-trainPath = os.path.sep.join([args["dataset"], "Train_trimmed.csv"])
+trainPath = os.path.sep.join([args["dataset"], "Train.csv"])
 testPath = os.path.sep.join([args["dataset"], "Test.csv"])
 
 print("going to load training and testing data...")
