@@ -1,5 +1,3 @@
-# python edge_inference.py --model output/trafficsignnet.model --testdata gtsrb-german-traffic-sign/Test --predictions examples
-
 from tensorflow.keras.models import load_model
 from skimage import transform
 from skimage import exposure
