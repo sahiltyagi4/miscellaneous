@@ -25,9 +25,9 @@ import random
 import os
 
 #hyperparameters
-epoch = 10
+epoch = 100
 lr = 1e-3
-batch_size = 32
+batch_size = 64
 
 def model_function(width, height, depth, classes):
 	model = Sequential()

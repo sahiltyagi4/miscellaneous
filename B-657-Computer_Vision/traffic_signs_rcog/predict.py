@@ -29,7 +29,7 @@ print("[INFO] loading model...")
 model = load_model(args["model"])
 
 # load the label names
-labelNames = open("signnames.csv").read().strip().split("\n")[1:]
+labelNames = open("labels.txt").read().strip().split("\n")[1:]
 labelNames = [l.split(",")[1] for l in labelNames]
 
 # grab the paths to the input images, shuffle them, and grab a sample
