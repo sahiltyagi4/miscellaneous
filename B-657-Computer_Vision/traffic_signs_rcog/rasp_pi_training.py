@@ -1,6 +1,3 @@
-# USAGE
-# python train.py --dataset gtsrb-german-traffic-sign --model output/trafficsignnet.model --plot output/plot.png
-
 import matplotlib
 matplotlib.use("Agg")
 from tensorflow.keras.models import Sequential
@@ -28,6 +25,12 @@ import os
 epoch = 100
 lr = 1e-3
 batch_size = 64
+
+parser = argparse.ArgumentParser()
+parser.add_argument("-d", "--dataset", required=True)
+parser.add_argument("-m", "--model", required=True)
+parser.add_argument("-p", "--plot", type=str, required=True)
+args = vars(parser.parse_args())
 
 def model_function(width, height, depth, classes):
 	model = Sequential()
@@ -81,8 +84,11 @@ def parse_input(basePath, csvPath):
 
 	for (i, line) in enumerate(file):
 		# train on smaller dataset when training on raspberry pi due to memory constraints
-		if i > 5000:
-			break
+		# if i > 5000:
+		# 	break
+
+		if i >0 and i // 1000 == 0:
+			print('loading batch of images ' + str(i))
 
 		(label, imagePath) = line.strip().split(",")[-2:]
 
@@ -102,12 +108,6 @@ def parse_input(basePath, csvPath):
 
 	return (data, labels)
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--dataset", default="/Users/sahiltyagi/Downloads/archive", required=True)
-parser.add_argument("-m", "--model", required=True)
-parser.add_argument("-p", "--plot", type=str, default="metrics.png")
-args = vars(parser.parse_args())
-
 labels = open("/home/pi/miscellaneous/B-657-Computer_Vision/traffic_signs_rcog/labels.txt").read().strip().split("\n")[1:]
 labels = [l.split(",")[1] for l in labels]
 
@@ -121,23 +121,23 @@ print("going to load training and testing data...")
 trainX = trainX.astype("float32") / 255.0
 testX = testX.astype("float32") / 255.0
 
-numLabels = len(np.unique(trainY))
-trainY = to_categorical(trainY, numLabels)
-testY = to_categorical(testY, numLabels)
+labelnum = len(np.unique(trainY))
+trainY = to_categorical(trainY, labelnum)
+testY = to_categorical(testY, labelnum)
 
-classTotals = trainY.sum(axis=0)
-classWeight = classTotals.max() / classTotals
+total_class = trainY.sum(axis=0)
+class_weights = total_class.max() / total_class
 
 aug = ImageDataGenerator(rotation_range=20, zoom_range=0.2, width_shift_range=0.15, height_shift_range=0.15, shear_range=0.2, 
 						horizontal_flip=False, vertical_flip=False, fill_mode="nearest")
 
 opt = Adam(lr=lr, decay=lr / (epoch * 0.5))
-model = model_function(width=32, height=32, depth=3, classes=numLabels)
+model = model_function(width=32, height=32, depth=3, classes=labelnum)
 model.compile(loss="categorical_crossentropy", optimizer=opt, metrics=["accuracy"])
 
 print("going to start training...")
 fitting = model.fit_generator(aug.flow(trainX, trainY, batch_size=batch_size), validation_data=(testX, testY), steps_per_epoch=trainX.shape[0] // batch_size, 
-							epochs=epoch, class_weight=classWeight, verbose=1)
+							class_weight=class_weights, verbose=1, epochs=epoch)
 
 print("going to evaluate model...")
 predictions = model.predict(testX, batch_size=batch_size)
