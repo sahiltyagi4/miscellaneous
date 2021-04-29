@@ -1,5 +1,4 @@
-# USAGE
-# python predict.py --model output/trafficsignnet.model --images gtsrb-german-traffic-sign/Test --examples examples
+# python edge_inference.py --model output/trafficsignnet.model --testdata gtsrb-german-traffic-sign/Test --predictions examples
 
 from tensorflow.keras.models import load_model
 from skimage import transform
@@ -27,6 +26,7 @@ labelNames = [l.split(",")[1] for l in labelNames]
 
 print("going to shuffle images....")
 imagePaths = list(paths.list_images(args["testdata"]))
+print('total size of all images to test ' + str(len(imagePaths)))
 random.shuffle(imagePaths)
 imagePaths = imagePaths[:25]
 
