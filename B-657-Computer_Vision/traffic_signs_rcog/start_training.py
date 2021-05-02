@@ -29,6 +29,12 @@ epoch = 3
 lr = 1e-3
 batch_size = 32
 
+parser = argparse.ArgumentParser()
+parser.add_argument("-d", "--dataset", default="/Users/sahiltyagi/Downloads/archive", required=True)
+parser.add_argument("-m", "--model", required=True)
+parser.add_argument("-p", "--plot", type=str, default="metrics.png")
+args = vars(parser.parse_args())
+
 def model_function(width, height, depth, classes):
 	model = Sequential()
 	inputShape = (height, width, depth)
@@ -101,11 +107,6 @@ def parse_input(basePath, csvPath):
 
 	return (data, labels)
 
-parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--dataset", default="/Users/sahiltyagi/Downloads/archive", required=True)
-parser.add_argument("-m", "--model", required=True)
-parser.add_argument("-p", "--plot", type=str, default="metrics.png")
-args = vars(parser.parse_args())
 
 labels = open("/Users/sahiltyagi/Documents/IUB/miscellaneous/B-657-Computer_Vision/traffic_signs_rcog/labels.txt").read().strip().split("\n")[1:]
 labels = [l.split(",")[1] for l in labels]
