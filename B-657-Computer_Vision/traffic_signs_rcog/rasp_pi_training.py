@@ -20,6 +20,7 @@ import numpy as np
 import argparse
 import random
 import os
+import psutil
 
 #hyperparameters
 epoch = 100
@@ -30,6 +31,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--dataset", required=True)
 parser.add_argument("-m", "--model", required=True)
 parser.add_argument("-p", "--plot", type=str, required=True)
+parser.add_argument("-l", "--labels", type=str, required=True)
 args = vars(parser.parse_args())
 
 def model_function(width, height, depth, classes):
@@ -75,6 +77,9 @@ def model_function(width, height, depth, classes):
 
 	return model
 
+def resource_utilization():
+	return psutil.virtual_memory()[2]
+
 
 def parse_input(basePath, csvPath):
 	data = []
@@ -84,11 +89,12 @@ def parse_input(basePath, csvPath):
 
 	for (i, line) in enumerate(file):
 		# train on smaller dataset when training on raspberry pi due to memory constraints
-		# if i > 5000:
-		# 	break
+		if i > 999 and i // 1000 == 0:
+			print('parsed input batch of ' + str(i) + ' images so far...')
 
-		if i >0 and i // 1000 == 0:
-			print('loading batch of images ' + str(i))
+		if resource_utilization() > 90:
+			print('EXCEEDED RESOURCE UTILIZATION SO GOING TO STOP LOADING MORE INPUT DATA!')
+			break
 
 		(label, imagePath) = line.strip().split(",")[-2:]
 
@@ -108,7 +114,7 @@ def parse_input(basePath, csvPath):
 
 	return (data, labels)
 
-labels = open("/home/pi/miscellaneous/B-657-Computer_Vision/traffic_signs_rcog/labels.txt").read().strip().split("\n")[1:]
+labels = open(args["labels"]).read().strip().split("\n")[1:]
 labels = [l.split(",")[1] for l in labels]
 
 trainPath = os.path.sep.join([args["dataset"], "Train.csv"])
