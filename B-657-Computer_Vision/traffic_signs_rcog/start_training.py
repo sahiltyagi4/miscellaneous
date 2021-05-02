@@ -1,6 +1,3 @@
-# USAGE
-# python train.py --dataset gtsrb-german-traffic-sign --model output/trafficsignnet.model --plot output/plot.png
-
 import matplotlib
 matplotlib.use("Agg")
 from tensorflow.keras.models import Sequential
@@ -23,7 +20,10 @@ import numpy as np
 import argparse
 import random
 import os
+import time
 
+start_time = time.time()
+print('start time ' + str(start_time))
 #hyperparameters
 epoch = 100
 lr = 1e-3
@@ -33,6 +33,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--dataset", required=True)
 parser.add_argument("-m", "--model", required=True)
 parser.add_argument("-p", "--plot", type=str, default="metrics.png")
+parser.add_argument("-l", "--labels", type=str)
 args = vars(parser.parse_args())
 
 def model_function(width, height, depth, classes):
@@ -108,7 +109,7 @@ def parse_input(basePath, csvPath):
 	return (data, labels)
 
 
-labels = open("/Users/sahiltyagi/Documents/IUB/miscellaneous/B-657-Computer_Vision/traffic_signs_rcog/labels.txt").read().strip().split("\n")[1:]
+labels = open(args["labels"]).read().strip().split("\n")[1:]
 labels = [l.split(",")[1] for l in labels]
 
 trainPath = os.path.sep.join([args["dataset"], "Train.csv"])
@@ -159,3 +160,6 @@ plt.xlabel("Epoch #")
 plt.ylabel("Loss/Accuracy")
 plt.legend(loc="lower left")
 plt.savefig(args["plot"])
+end_time = time.time()
+print('end time is ' + str(end_time))
+print('total time taken ' + str(end_time - start_time))
