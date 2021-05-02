@@ -25,12 +25,12 @@ import random
 import os
 
 #hyperparameters
-epoch = 3
+epoch = 100
 lr = 1e-3
-batch_size = 32
+batch_size = 64
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-d", "--dataset", default="/Users/sahiltyagi/Downloads/archive", required=True)
+parser.add_argument("-d", "--dataset", required=True)
 parser.add_argument("-m", "--model", required=True)
 parser.add_argument("-p", "--plot", type=str, default="metrics.png")
 args = vars(parser.parse_args())
